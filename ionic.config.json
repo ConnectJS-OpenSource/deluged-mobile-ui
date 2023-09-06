@@ -1,0 +1,7 @@
+{
+  "name": "deluged-web",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
