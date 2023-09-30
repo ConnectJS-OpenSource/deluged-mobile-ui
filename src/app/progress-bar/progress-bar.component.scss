@@ -1,0 +1,17 @@
+.outer-div{
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 5px;
+  position: relative;
+  .inner-div{
+    border:none;
+  }
+  .div-label{
+    position: absolute;
+    top:0px;
+    left:45%;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+}

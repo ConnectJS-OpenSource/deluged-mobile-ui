@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Torrents
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,33 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Torrents</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-list [inset]="true">
+    <ion-item [button]="true" detail="false" *ngFor="let torrent of torrents; trackBy: torrent_trackBy" (click)="torrentClick(torrent)">
+      <ion-label>
+        <ion-note color="medium" class="ion-text-wrap onest-font torrent-item">
+          {{torrent.name}}
+        </ion-note>
+        <ion-row>
+          <ion-col>
+            <div style="font-weight: bold; color: black; font-size: 12px">
+              {{torrent.save_path}}
+            </div>
+          </ion-col>
+          <ion-col>
+            <div style="font-weight: bold; color: black; font-size: 12px; text-align: right" *ngIf="!torrent.is_finished">
+              {{download_rate(torrent.download_payload_rate)}}
+            </div>
+          </ion-col>
+        </ion-row>
+        <progress-bar [value]="torrent.progress" *ngIf="!torrent.is_finished" [height]="10" [hideLabel]="true"></progress-bar>
+      </ion-label>
+      <ion-icon name="play-outline" slot="end" *ngIf="!torrent.is_finished && torrent.paused"></ion-icon>
+    </ion-item>
+  </ion-list>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 </ion-content>

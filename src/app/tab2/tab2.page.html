@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Add New Torrent
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,29 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large">Add New Torrent</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <div style="padding: 10px">
+    <ion-button color="primary" size="small" (click)="add_new_line()">Add</ion-button>
+    <ion-button color="danger" size="small" (click)="torrents = []">Clear</ion-button>
+  </div>
+  <ion-list>
+    <ion-item *ngFor="let torrent of torrents">
+      <ion-label>
+        <ion-input label="Magnet Url" labelPlacement="stacked" placeholder="paste magnet url here" [(ngModel)]="torrent.path" class="onest-font text-size-12"></ion-input>
+        <ion-select label="Type" label-placement="stacked" interface="popover" placeholder="select torrent type" [(ngModel)]="torrent.type" class="onest-font text-size-12">
+          <ion-select-option value="movie">Movie</ion-select-option>
+          <ion-select-option value="tv">TV Show</ion-select-option>
+        </ion-select>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" *ngIf="torrents.length > 0" (click)="process()">
+    <ion-fab-button>
+      <ion-icon name="save"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
