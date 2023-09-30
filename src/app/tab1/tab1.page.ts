@@ -103,7 +103,14 @@ export class Tab1Page implements OnInit{
   }
 
   async handleRefresh($event: any) {
+    clearInterval(this.poll_handler);
+    await this.login();
     await this.ngOnInit();
     $event.target.complete();
+  }
+
+  async login() {
+    await this.appService.login();
+    await this.ngOnInit();
   }
 }

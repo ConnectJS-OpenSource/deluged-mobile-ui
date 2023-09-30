@@ -10,10 +10,11 @@
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Torrents</ion-title>
+      <ion-button *ngIf="false" size="small" color="danger" slot="end" style="margin-right: 10px" (click)="login()">Login</ion-button>
     </ion-toolbar>
   </ion-header>
   <ion-list [inset]="true">
-    <ion-item [button]="true" detail="false" *ngFor="let torrent of torrents; trackBy: torrent_trackBy" (click)="torrentClick(torrent)">
+    <ion-item detail="false" *ngFor="let torrent of torrents; trackBy: torrent_trackBy" (click)="torrentClick(torrent)">
       <ion-label>
         <ion-note color="medium" class="ion-text-wrap onest-font torrent-item">
           {{torrent.name}}
@@ -33,6 +34,7 @@
         <progress-bar [value]="torrent.progress" *ngIf="!torrent.is_finished" [height]="10" [hideLabel]="true"></progress-bar>
       </ion-label>
       <ion-icon name="play-outline" slot="end" *ngIf="!torrent.is_finished && torrent.paused"></ion-icon>
+      <ion-icon name="checkmark-circle-outline" slot="end" color="success" *ngIf="torrent.is_finished"></ion-icon>
     </ion-item>
   </ion-list>
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
