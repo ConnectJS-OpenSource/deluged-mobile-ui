@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  api_base: 'http://192.168.0.100:5279'
+  api_base: 'http://192.168.0.115:8181',
+  admin_center: 'http://192.168.0.118:9090'
 };
 
 /*

@@ -6,13 +6,15 @@ import {Torrent, TorrentActions} from "../types";
 import {ProgressBarComponent} from "../progress-bar/progress-bar.component";
 import {TorrentService} from "../services/torrent.service";
 import {humanFileSize} from "../helpers";
+import {RouterLink} from "@angular/router";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
   standalone: true,
-  imports: [IonicModule, ProgressBarComponent, NgForOf, NgIf],
+  imports: [IonicModule, ProgressBarComponent, NgForOf, NgIf, RouterLink],
 })
 export class Tab1Page implements OnInit{
   poll_handler: number = 0;
@@ -26,6 +28,10 @@ export class Tab1Page implements OnInit{
 
   get torrents(): Torrent[]{
     return this.torrentService.torrents;
+  }
+
+  get admin_center(){
+    return environment.admin_center;
   }
 
   poll = async () => {

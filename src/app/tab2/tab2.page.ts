@@ -37,4 +37,10 @@ export class Tab2Page {
     await this.torrentService.populateTorrentCollection();
   }
 
+  removeLineItem(t: NewTorrentRequest){
+    const index = this.torrents.findIndex(m => m == t);
+    if(index > -1)
+      this.torrents.splice(index, 1);
+  }
+
 }

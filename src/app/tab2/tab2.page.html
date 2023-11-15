@@ -20,18 +20,19 @@
   <ion-list>
     <ion-item *ngFor="let torrent of torrents">
       <ion-label>
-        <ion-input label="Magnet Url" labelPlacement="stacked" placeholder="paste magnet url here" [(ngModel)]="torrent.path" class="onest-font text-size-12"></ion-input>
-        <ion-select label="Type" label-placement="stacked" interface="popover" placeholder="select torrent type" [(ngModel)]="torrent.type" class="onest-font text-size-12">
+        <ion-input label="Magnet Url" labelPlacement="stacked" placeholder="Paste Magnet url here" [(ngModel)]="torrent.path" class="onest-font text-size-13"></ion-input>
+        <ion-select label="Type" label-placement="stacked" interface="popover" placeholder="select torrent type" [(ngModel)]="torrent.type" class="onest-font text-size-13">
           <ion-select-option value="movie">Movie</ion-select-option>
           <ion-select-option value="tv">TV Show</ion-select-option>
         </ion-select>
       </ion-label>
+      <ion-button color="danger" size="small" (click)="removeLineItem(torrent)" slot="end">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
     </ion-item>
   </ion-list>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end" *ngIf="torrents.length > 0" (click)="process()">
-    <ion-fab-button>
-      <ion-icon name="save"></ion-icon>
-    </ion-fab-button>
+    <ion-fab-button>Start</ion-fab-button>
   </ion-fab>
 </ion-content>

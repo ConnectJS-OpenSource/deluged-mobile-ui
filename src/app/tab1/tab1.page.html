@@ -3,6 +3,7 @@
     <ion-title>
       Torrents
     </ion-title>
+    <ion-button size="small" color="danger" slot="end" [href]="admin_center" target="_blank" style="margin-right: 10px">Admin-Center</ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -10,7 +11,7 @@
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Torrents</ion-title>
-      <ion-button *ngIf="false" size="small" color="danger" slot="end" style="margin-right: 10px" (click)="login()">Login</ion-button>
+
     </ion-toolbar>
   </ion-header>
   <ion-list [inset]="true">
