@@ -4,7 +4,12 @@
 
 export const environment = {
   production: false,
-  api_base: 'http://192.168.0.115:8181',
+  // qBittorent
+  //api_base: 'http://192.168.0.118:27000/api/v2',
+  //admin_center: 'http://192.168.0.118:27000'
+
+  // deluged-web
+  api_base: 'http://localhost:5279/api',
   admin_center: 'http://192.168.0.118:9090'
 };
 

@@ -1,13 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {ActionSheetController, IonicModule} from '@ionic/angular';
-import {AppService} from "../services/app-service.service";
+import {Component, Inject, OnInit} from '@angular/core';
+import {ActionSheetController, AlertController, IonicModule} from '@ionic/angular';
+import {DelugedAppService} from "../services/deluged-app-service.service";
 import {NgForOf, NgIf} from "@angular/common";
-import {Torrent, TorrentActions} from "../types";
+import {IAppServiceProvider, Torrent, TorrentActions} from "../types";
 import {ProgressBarComponent} from "../progress-bar/progress-bar.component";
 import {TorrentService} from "../services/torrent.service";
 import {humanFileSize} from "../helpers";
 import {RouterLink} from "@angular/router";
 import {environment} from "../../environments/environment";
+import {IAppService} from "../services/IAppService";
+import * as magnet from 'magnet-uri'
+
 
 @Component({
   selector: 'app-tab1',
@@ -19,9 +22,10 @@ import {environment} from "../../environments/environment";
 export class Tab1Page implements OnInit{
   poll_handler: number = 0;
   constructor(
-    private appService: AppService,
+    @Inject(IAppServiceProvider.provide) private appService: IAppService,
     private torrentService: TorrentService,
-    private actionSheetCtrl: ActionSheetController) {
+    private actionSheetCtrl: ActionSheetController,
+    private alertController: AlertController) {
 
   }
   protected readonly Math = Math;
@@ -49,7 +53,7 @@ export class Tab1Page implements OnInit{
 
     }
 
-    this.poll_handler = setTimeout(this.poll, 2000);
+    this.poll_handler = window.setTimeout(this.poll, 2000);
   }
 
   async ngOnInit() {
@@ -118,5 +122,53 @@ export class Tab1Page implements OnInit{
   async login() {
     await this.appService.login();
     await this.ngOnInit();
+  }
+
+  async pasteLink(){
+    let content = await navigator.clipboard.readText();
+    let valid = content.indexOf('magnet:?') === 0;
+    let alert: HTMLIonAlertElement | undefined = undefined;
+
+    if(valid){
+      let uri: any = magnet.decode(content);
+      let selected = 'movie'
+      alert = await this.alertController.create({
+        header: 'Valid',
+        message: uri.dn,
+        inputs: [{
+          label: 'Movie',
+          type: 'radio',
+          value: 'movie',
+          checked: selected === 'movie',
+          handler: () => selected = 'movie'
+        },{
+          label: 'TV',
+          type: 'radio',
+          value: 'tv',
+          checked: selected === 'tv',
+          handler: () => selected = 'tv'
+        }],
+        buttons: [
+          {
+            text: 'Add',
+            handler: async () => {
+              await this.appService.add_torrent(content, selected);
+              await alert?.dismiss();
+            }
+          }, {
+          text: 'Cancel',
+          role: 'cancel'
+        }]
+      });
+    }
+    else
+      alert = await this.alertController.create({
+        header:'Invalid Link',
+        message: content,
+        buttons: ['Cancel'],
+      });
+
+    if(alert)
+      await alert.present();
   }
 }

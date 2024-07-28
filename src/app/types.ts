@@ -1,3 +1,6 @@
+import {DelugedAppService} from "./services/deluged-app-service.service";
+import {QbitAppServiceService} from "./services/qbit-app-service.service";
+
 export interface Torrent{
   comment: string
   hash: string
@@ -26,3 +29,7 @@ export interface NewTorrentRequest{
   success?: boolean
 }
 
+export const IAppServiceProvider = {
+  provide: "IAppService",
+  useClass: DelugedAppService,
+};

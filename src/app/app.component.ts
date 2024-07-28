@@ -1,7 +1,6 @@
 import { Component, EnvironmentInjector, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import {AppService} from "./services/app-service.service";
 import {HttpClientModule} from "@angular/common/http";
 
 @Component({
@@ -12,9 +11,7 @@ import {HttpClientModule} from "@angular/common/http";
   imports: [IonicModule, CommonModule, HttpClientModule],
 })
 export class AppComponent {
-  public environmentInjector = inject(EnvironmentInjector);
-
-  constructor(private appService: AppService) {
+  constructor() {
 
   }
 }

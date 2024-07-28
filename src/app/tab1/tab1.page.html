@@ -38,6 +38,9 @@
       <ion-icon name="checkmark-circle-outline" slot="end" color="success" *ngIf="torrent.is_finished"></ion-icon>
     </ion-item>
   </ion-list>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" (click)="pasteLink()" *ngIf="false">
+    <ion-fab-button color="danger">Paste</ion-fab-button>
+  </ion-fab>
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>

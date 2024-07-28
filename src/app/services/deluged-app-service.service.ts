@@ -3,11 +3,12 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {lastValueFrom} from "rxjs";
 import {Torrent, TorrentActions} from "../types";
+import {IAppService} from "./IAppService";
 
 @Injectable({
   providedIn: 'root',
 })
-export class AppService {
+export class DelugedAppService implements IAppService{
   api_base: string = environment.api_base;
   constructor(private httpClient: HttpClient) { }
 

@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import {NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
-import {AppService} from "../services/app-service.service";
-import {NewTorrentRequest} from "../types";
+import {IAppServiceProvider, NewTorrentRequest} from "../types";
 import {TorrentService} from "../services/torrent.service";
+import {IAppService} from "../services/IAppService";
 
 @Component({
   selector: 'app-tab2',
@@ -16,7 +16,9 @@ import {TorrentService} from "../services/torrent.service";
 export class Tab2Page {
 
   torrents: NewTorrentRequest[] = [];
-  constructor(private appService: AppService, private torrentService: TorrentService) {}
+  constructor(
+    @Inject(IAppServiceProvider.provide) private appService: IAppService
+    , private torrentService: TorrentService) {}
 
   add_new_line(){
     this.torrents.push({

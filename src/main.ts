@@ -7,6 +7,7 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {IAppServiceProvider} from "./app/types";
 
 if (environment.production) {
   enableProdMode();
@@ -15,6 +16,7 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    IAppServiceProvider,
     importProvidersFrom([
       IonicModule.forRoot({}),
       HttpClientModule
